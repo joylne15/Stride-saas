@@ -1,92 +1,65 @@
-const PLANS = [
-  {
-    name: "Solo",
-    price: "0",
-    tagline: "For a single runner finding their pace.",
-    features: ["Up to 3 lanes", "1 team member", "7-day task history", "Basic reports"],
-    highlighted: false,
+// src/components/Pricing.tsx
+
+// A tiny SVG checkmark icon so we don't need external icon libraries
+const CheckIcon = () => (
+  <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 13l4 4L19 7"></path></svg>
+);
+
+const pricingTiers = [
+  { 
+    name: "Hobby", price: "$0", desc: "For individuals trying out Stride.", 
+    features: ["Up to 3 projects", "Community support", "1GB Storage", "Basic analytics"] 
   },
-  {
-    name: "Team",
-    price: "18",
-    tagline: "For teams who need everyone in sync.",
-    features: [
-      "Unlimited lanes",
-      "Up to 20 team members",
-      "Full split-time history",
-      "Checkpoint automations",
-      "Priority support",
-    ],
-    highlighted: true,
+  { 
+    name: "Pro", price: "$29", desc: "For professional teams scaling fast.", 
+    features: ["Unlimited projects", "Priority support", "100GB Storage", "Advanced analytics", "Smart Automations"], 
+    featured: true // This triggers the purple highlight!
   },
-  {
-    name: "Studio",
-    price: "42",
-    tagline: "For orgs running multiple tracks at once.",
-    features: [
-      "Everything in Team",
-      "Unlimited members",
-      "Open track API access",
-      "SSO & audit logs",
-      "Dedicated onboarding",
-    ],
-    highlighted: false,
-  },
+  { 
+    name: "Enterprise", price: "Custom", desc: "For large organizations.", 
+    features: ["Everything in Pro", "Dedicated manager", "Unlimited Storage", "SSO & SAML", "99.99% Uptime SLA"] 
+  }
 ];
 
 export default function Pricing() {
   return (
-    <section id="pricing" className="bg-ink py-24 text-cloud">
-      <div className="mx-auto max-w-6xl px-6">
-        <p className="lane-label text-amber">Lane 03 — Pricing</p>
-        <h2 className="mt-4 max-w-2xl font-display text-4xl leading-tight md:text-5xl">
-          PICK YOUR PACE
-        </h2>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {PLANS.map((plan) => (
-            <div
-              key={plan.name}
-              className={`flex flex-col rounded-2xl border p-8 ${
-                plan.highlighted
-                  ? "border-cobalt bg-graphite"
-                  : "border-white/10 bg-graphite/40"
-              }`}
-            >
-              {plan.highlighted && (
-                <span className="lane-label mb-4 inline-block w-fit rounded-full bg-cobalt px-3 py-1 text-white">
-                  Most popular
-                </span>
+    <section className="bg-black py-24 border-t border-white/5">
+      <div className="max-w-7xl mx-auto px-6">
+        <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">Simple, transparent pricing</h2>
+        <p className="text-gray-400 text-center mb-16">Start free. Upgrade when you need to.</p>
+        
+        {/* items-start makes sure all columns align at the top nicely */}
+        <div className="grid md:grid-cols-3 gap-8 items-start">
+          {pricingTiers.map((tier, i) => (
+            <div key={i} className={`relative rounded-2xl p-8 border ${tier.featured ? 'border-purple-500/50 bg-purple-500/5' : 'border-white/10'} backdrop-blur-sm`}>
+              
+              {/* The badge for the popular tier */}
+              {tier.featured && (
+                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-linear-to-r from-purple-500 to-blue-500 text-white text-xs font-bold px-3 py-1 rounded-full">
+                  MOST POPULAR
+                </div>
               )}
-              <h3 className="font-display text-2xl tracking-wide">
-                {plan.name.toUpperCase()}
-              </h3>
-              <p className="mt-2 text-sm text-ink-muted">{plan.tagline}</p>
-
-              <div className="mt-6 flex items-baseline gap-1 font-mono-stat">
-                <span className="text-4xl font-medium">${plan.price}</span>
-                <span className="text-sm text-ink-muted">/month</span>
+              
+              <h3 className="text-xl font-semibold text-white">{tier.name}</h3>
+              <p className="text-gray-400 text-sm mt-2 h-10">{tier.desc}</p>
+              
+              <div className="my-6">
+                <span className="text-5xl font-extrabold text-white">{tier.price}</span>
+                {tier.price !== "Custom" && <span className="text-gray-400">/mo</span>}
               </div>
-
-              <ul className="mt-8 flex-1 space-y-3">
-                {plan.features.map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 text-sm">
-                    <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-cobalt" />
-                    <span className="text-ink-muted">{feature}</span>
+              
+              <button className={`w-full py-3 rounded-lg font-semibold text-sm transition ${tier.featured ? 'bg-white text-black hover:bg-gray-200' : 'bg-white/5 text-white border border-white/10 hover:bg-white/10'}`}>
+                {tier.price === "Custom" ? "Contact Sales" : "Get Started"}
+              </button>
+              
+              <ul className="mt-8 space-y-4">
+                {tier.features.map((feat, idx) => (
+                  <li key={idx} className="flex items-start text-gray-300 text-sm">
+                    <span className="mr-3 mt-0.5"><CheckIcon /></span>
+                    {feat}
                   </li>
                 ))}
               </ul>
-
-              <a
-                href="#"
-                className={`mt-8 rounded-full px-5 py-3 text-center text-sm font-semibold transition-colors ${
-                  plan.highlighted
-                    ? "bg-cobalt text-white hover:bg-cobalt-dim"
-                    : "border border-white/20 text-cloud hover:border-white/50"
-                }`}
-              >
-                Get started
-              </a>
             </div>
           ))}
         </div>

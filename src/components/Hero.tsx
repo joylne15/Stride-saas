@@ -1,71 +1,52 @@
-const CHECKPOINTS = ["Backlog", "Doing", "Review", "Done"];
+// src/components/Hero.tsx
 
 export default function Hero() {
   return (
-    <section id="top" className="relative overflow-hidden bg-ink text-cloud">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(54,84,255,0.25),transparent_55%)]" />
+    // relative allows us to place the gradient inside this section
+    <section className="relative overflow-hidden bg-black pt-40 pb-24 text-center">
+      
+      {/* The Subtle Background Glow - This is the "Vercel/Linear" look */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2  bg-purple-600/20 rounded-full blur-[150px] pointer-events-none"></div>
+      
+      {/* z-10 brings the text above the glow */}
+      <div className="relative z-10 max-w-4xl mx-auto px-6">
+        
+        {/* Glassmorphism Badge */}
+        <div className="inline-block mb-6 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-gray-300 backdrop-blur-md">
+          ✨ Stride 2.0 is now live!
+        </div>
 
-      <div className="relative mx-auto max-w-6xl px-6 pb-24 pt-20 md:pt-28">
-        <p className="lane-label text-amber">Lane 01 — Overview</p>
-
-        <h1 className="mt-6 max-w-3xl font-display text-6xl leading-[0.95] md:text-8xl">
-          KEEP EVERY TASK
-          <br />
-          MOVING FORWARD
+        {/* Main Headline - Notice the gradient text effect */}
+        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+from-white to-gray-500 bg-clip-text text-transparent">
+          Plan, track, and ship with speed
         </h1>
-
-        <p className="mt-6 max-w-xl text-lg text-ink-muted">
-          Stride is the task tracker built for teams who hate stalled work.
-          Every card has a pace. Every lane shows momentum. Nothing sits
-          still long enough to go cold.
+        
+        {/* Subtitle */}
+        <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-400">
+          Stride is the minimalist task manager for fast-moving teams. No clutter, just progress.
         </p>
 
-        <div className="mt-8 flex flex-wrap items-center gap-4">
-          <a
-            href="#pricing"
-            className="rounded-full bg-cobalt px-7 py-3 font-semibold text-white transition-colors hover:bg-cobalt-dim"
-          >
-            Start free trial
-          </a>
-          <a
-            href="#features"
-            className="rounded-full border border-white/20 px-7 py-3 font-semibold text-cloud transition-colors hover:border-white/50"
-          >
-            See how it works
-          </a>
+        {/* CTA Buttons */}
+        <div className="mt-10 flex justify-center gap-4">
+          <button className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-gray-200 transition">
+            Start for Free
+          </button>
+          <button className="rounded-lg border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/10 transition">
+            Book a Demo
+          </button>
         </div>
-
-        {/* Signature element: animated split line across task stages */}
-        <div className="mt-20">
-          <div className="relative">
-            <div className="h-px w-full bg-white/15" />
-            <div className="absolute left-0 top-1/2 h-2 w-2 -translate-y-1/2 animate-[stride-marker_3.5s_ease-in-out_infinite] rounded-full bg-amber shadow-[0_0_16px_2px_rgba(255,182,39,0.6)]" />
-
-            <div className="mt-0 flex justify-between">
-              {CHECKPOINTS.map((label, i) => (
-                <div
-                  key={label}
-                  className="flex -translate-y-1/2 flex-col items-center gap-3"
-                >
-                  <span className="h-2.5 w-2.5 rounded-full border-2 border-white/30 bg-ink" />
-                  <span className="lane-label text-ink-muted">
-                    {String(i + 1).padStart(2, "0")} / {label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <style>{`
-            @keyframes stride-marker {
-              0% { left: 0%; }
-              45% { left: 100%; }
-              50% { left: 100%; }
-              95% { left: 0%; }
-              100% { left: 0%; }
-            }
-          `}</style>
-        </div>
+        
       </div>
     </section>
   );

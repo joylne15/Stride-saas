@@ -1,23 +1,25 @@
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Features from "./components/Features";
-import Pricing from "./components/pricing";
-import Testimonials from "./components/Testimonials";
-import FAQ from "./components/FAQ";
-import Footer from "./components/Footer";
+// src/App.tsx
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';
+import Features from './components/Features';
+import Pricing from './components/Pricing';
+import Testimonials from './components/Testimonials';
+import FAQ from './components/FAQ';
+import Footer from './components/Footer';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-cloud font-body text-ink">
+    // The main wrapper. bg-black makes the whole page dark.
+    <div className="bg-black min-h-screen antialiased">
+      
       <Navbar />
-      <main>
-        <Hero />
-        <Features />
-        <Pricing />
-        <Testimonials />
-        <FAQ />
-      </main>
+      <Hero />
+      <Features />
+      <Pricing />
+      <Testimonials />
+      <FAQ />
       <Footer />
+      
     </div>
   );
 }

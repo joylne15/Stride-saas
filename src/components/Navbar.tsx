@@ -1,89 +1,32 @@
-import { useState } from "react";
-
-const NAV_LINKS = [
-  { label: "Features", href: "#features" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "FAQ", href: "#faq" },
-];
+// src/components/Navbar.tsx
 
 export default function Navbar() {
-  const [open, setOpen] = useState(false);
-
   return (
-    <header className="sticky top-0 z-50 border-b border-mist/80 bg-cloud/90 backdrop-blur">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-        <a href="#top" className="flex items-center gap-2">
-          <span className="h-2.5 w-2.5 rounded-full bg-cobalt" aria-hidden="true" />
-          <span className="font-display text-2xl tracking-wide">STRIDE</span>
-        </a>
-
-        <ul className="hidden items-center gap-8 md:flex">
-          {NAV_LINKS.map((link) => (
-            <li key={link.href}>
-              <a
-                href={link.href}
-                className="lane-label text-slate transition-colors hover:text-ink"
-              >
-                {link.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        <div className="hidden items-center gap-4 md:flex">
-          <a href="#" className="lane-label text-slate hover:text-ink">
-            Log in
-          </a>
-          <a
-            href="#pricing"
-            className="rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-cloud transition-colors hover:bg-cobalt"
-          >
-            Start free
-          </a>
+    // sticky top-0 keeps it at the top. backdrop-blur makes it see-through (glassmorphism)
+    <nav className="sticky top-0 z-50 bg-black/60 backdrop-blur-md border-b border-white/10">
+      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
+        
+        {/* Logo */}
+        <div className="text-white font-bold text-xl">Stride</div>
+        
+        {/* Center Links - hidden on mobile (md:flex), visible on desktop */}
+        <div className="hidden md:flex space-x-8 text-sm text-gray-300">
+          <a href="#" className="hover:text-white transition">Features</a>
+          <a href="#" className="hover:text-white transition">Pricing</a>
+          <a href="#" className="hover:text-white transition">Docs</a>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          aria-expanded={open}
-          aria-label="Toggle menu"
-          className="flex h-10 w-10 items-center justify-center rounded-full border border-mist md:hidden"
-        >
-          <span className="sr-only">Menu</span>
-          <div className="flex flex-col gap-1.5">
-            <span className="block h-0.5 w-5 bg-ink" />
-            <span className="block h-0.5 w-5 bg-ink" />
-          </div>
-        </button>
-      </nav>
-
-      {open && (
-        <div className="border-t border-mist bg-cloud px-6 py-4 md:hidden">
-          <ul className="flex flex-col gap-4">
-            {NAV_LINKS.map((link) => (
-              <li key={link.href}>
-                <a
-                  href={link.href}
-                  onClick={() => setOpen(false)}
-                  className="lane-label text-slate"
-                >
-                  {link.label}
-                </a>
-              </li>
-            ))}
-            <li>
-              <a
-                href="#pricing"
-                onClick={() => setOpen(false)}
-                className="inline-block rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-cloud"
-              >
-                Start free
-              </a>
-            </li>
-          </ul>
+        
+        {/* Right Side Buttons */}
+        <div className="flex items-center space-x-4">
+          <button className="text-sm text-gray-300 hover:text-white transition hidden md:block">
+            Sign In
+          </button>
+          <button className="text-sm bg-white text-black px-4 py-2 rounded-lg font-semibold hover:bg-gray-200 transition">
+            Get Started
+          </button>
         </div>
-      )}
-    </header>
+        
+      </div>
+    </nav>
   );
 }

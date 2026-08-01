@@ -1,60 +1,56 @@
-const COLUMNS = [
-  {
-    title: "Product",
-    links: ["Features", "Pricing", "Changelog", "Roadmap"],
-  },
-  {
-    title: "Company",
-    links: ["About", "Careers", "Blog"],
-  },
-  {
-    title: "Resources",
-    links: ["Docs", "API", "Support"],
-  },
+// src/components/FAQ.tsx
+import { useState } from 'react';
+
+const faqs = [
+  { q: "Can I cancel my subscription anytime?", a: "Yes, you can cancel directly from your dashboard with one click. There are no hidden fees or cancellation charges." },
+  { q: "Do you offer discounts for startups?", a: "We offer a 50% discount for early-stage startups and verified students. Reach out to our sales team to learn more." },
+  { q: "How does the free trial work?", a: "You get full access to all Pro features for 14 days. No credit card is required to start your trial." },
+  { q: "Is my data secure?", a: "Absolutely. We are SOC2 Type II compliant and encrypt all data both in transit and at rest using industry-standard protocols." }
 ];
 
-export default function Footer() {
-  return (
-    <footer className="border-t border-mist bg-ink text-cloud">
-      <div className="mx-auto max-w-6xl px-6 py-16">
-        <div className="grid gap-10 md:grid-cols-[2fr_1fr_1fr_1fr]">
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="h-2.5 w-2.5 rounded-full bg-cobalt" />
-              <span className="font-display text-2xl tracking-wide">
-                STRIDE
-              </span>
-            </div>
-            <p className="mt-4 max-w-xs text-sm text-ink-muted">
-              A task tracker for teams who measure progress in momentum, not
-              meetings.
-            </p>
-          </div>
+// Simple SVG icons for the expand/collapse button
+const PlusIcon = () => (
+  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+);
+const MinusIcon = () => (
+  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"></path></svg>
+);
 
-          {COLUMNS.map((col) => (
-            <div key={col.title}>
-              <h4 className="lane-label text-ink-muted">{col.title}</h4>
-              <ul className="mt-4 space-y-3">
-                {col.links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-cloud/80 transition-colors hover:text-cobalt"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
+export default function FAQ() {
+  // useState tracks which question is currently open. We set it to 0 so the first one is open by default.
+  const [open, setOpen] = useState<number | null>(0);
+
+  return (
+    <section className="bg-black py-24 border-t border-white/5">
+      <div className="max-w-3xl mx-auto px-6">
+        <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
+        
+        <div className="space-y-4">
+          {faqs.map((faq, i) => (
+            <div key={i} className="border border-white/10 rounded-xl overflow-hidden ">
+              
+              {/* The Button (Question) */}
+              <button 
+                onClick={() => setOpen(open === i ? null : i)} // If clicked, open it. If already open, close it.
+                className="flex w-full justify-between items-center p-6 text-left text-white font-mediu transition"
+              >
+                <span>{faq.q}</span>
+                <span className="">
+                  {open === i ? <MinusIcon /> : <PlusIcon />}
+                </span>
+              </button>
+              
+              {/* The Answer (Animated Grid) */}
+              <div className={`grid transition-all duration-300 ease-in-out ${open === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                <div className="overflow-hidden">
+                  <p className="px-6 pb-6 text-gray-400 leading-relaxed">{faq.a}</p>
+                </div>
+              </div>
+              
             </div>
           ))}
         </div>
-
-        <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-white/10 pt-8 text-xs text-ink-muted md:flex-row md:items-center">
-          <span>© {new Date().getFullYear()} Stride. All rights reserved.</span>
-          <span className="font-mono-stat">Built for pace, not pressure.</span>
-        </div>
       </div>
-    </footer>
+    </section>
   );
 }

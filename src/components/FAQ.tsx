@@ -1,64 +1,54 @@
-import { useState } from "react";
+// src/components/FAQ.tsx
+import { useState } from 'react';
 
-const FAQS = [
-  {
-    q: "Do I need to migrate my existing boards?",
-    a: "No. Stride imports directly from CSV or from most common task-tracking tools in a single step, and keeps your original creation dates intact.",
-  },
-  {
-    q: "Can I customize the lanes?",
-    a: "Yes — lanes, checkpoints, and automation rules are fully editable per project. The default four-lane layout is just a starting point.",
-  },
-  {
-    q: "Is there a limit on tasks per lane?",
-    a: "No. Every plan, including Solo, has unlimited tasks. Paid tiers add more lanes, members, and history depth.",
-  },
-  {
-    q: "What happens if I cancel?",
-    a: "You keep read-only access to your task history for 90 days after cancellation, and can export everything to CSV at any time.",
-  },
+const faqs = [
+  { q: "Can I cancel my subscription anytime?", a: "Yes, you can cancel directly from your dashboard with one click. There are no hidden fees or cancellation charges." },
+  { q: "Do you offer discounts for startups?", a: "We offer a 50% discount for early-stage startups and verified students. Reach out to our sales team to learn more." },
+  { q: "How does the free trial work?", a: "You get full access to all Pro features for 14 days. No credit card is required to start your trial." },
+  { q: "Is my data secure?", a: "Absolutely. We are SOC2 Type II compliant and encrypt all data both in transit and at rest using industry-standard protocols." }
 ];
 
+// Simple SVG icons for the expand/collapse button
+const PlusIcon = () => (
+  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4"></path></svg>
+);
+const MinusIcon = () => (
+  <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 12H4"></path></svg>
+);
+
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  // useState tracks which question is currently open. We set it to 0 so the first one is open by default.
+  const [open, setOpen] = useState<number | null>(0);
 
   return (
-    <section id="faq" className="bg-cloud py-24">
-      <div className="mx-auto max-w-3xl px-6">
-        <p className="lane-label text-cobalt">Lane 05 — FAQ</p>
-        <h2 className="mt-4 font-display text-4xl leading-tight md:text-5xl">
-          QUESTIONS BEFORE YOU START
-        </h2>
-
-        <div className="mt-12 divide-y divide-mist border-y border-mist">
-          {FAQS.map((item, i) => {
-            const isOpen = openIndex === i;
-            return (
-              <div key={item.q}>
-                <button
-                  type="button"
-                  onClick={() => setOpenIndex(isOpen ? null : i)}
-                  aria-expanded={isOpen}
-                  className="flex w-full items-center justify-between gap-4 py-6 text-left"
-                >
-                  <span className="font-semibold text-ink">{item.q}</span>
-                  <span
-                    className={`shrink-0 text-xl text-cobalt transition-transform ${
-                      isOpen ? "rotate-45" : ""
-                    }`}
-                    aria-hidden="true"
-                  >
-                    +
-                  </span>
-                </button>
-                {isOpen && (
-                  <p className="pb-6 text-sm leading-relaxed text-slate">
-                    {item.a}
-                  </p>
-                )}
+    <section className="bg-black py-24 border-t border-white/5">
+      <div className="max-w-3xl mx-auto px-6">
+        <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
+        
+        <div className="space-y-4">
+          {faqs.map((faq, i) => (
+            <div key={i} className="border border-white/10 rounded-xl overflow-hidden ">
+              
+              {/* The Button (Question) */}
+              <button 
+                onClick={() => setOpen(open === i ? null : i)} // If clicked, open it. If already open, close it.
+                className="flex w-full justify-between items-center p-6 text-left text-white font-medium  transition"
+              >
+                <span>{faq.q}</span>
+                <span className="ml-4 ">
+                  {open === i ? <MinusIcon /> : <PlusIcon />}
+                </span>
+              </button>
+              
+              {/* The Answer (Animated Grid) */}
+              <div className={`grid transition-all duration-300 ease-in-out ${open === i ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
+                <div className="overflow-hidden">
+                  <p className="px-6 pb-6 text-gray-400 leading-relaxed">{faq.a}</p>
+                </div>
               </div>
-            );
-          })}
+              
+            </div>
+          ))}
         </div>
       </div>
     </section>

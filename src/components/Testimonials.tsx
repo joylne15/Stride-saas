@@ -1,47 +1,36 @@
-const TESTIMONIALS = [
-  {
-    quote:
-      "We used to lose two days a week to status meetings. Now the lanes just tell us where everything stands.",
-    name: "Priya Nair",
-    role: "Engineering Lead, Fenway Labs",
-  },
-  {
-    quote:
-      "The split-time reports found a bottleneck in our review stage we'd been guessing about for months.",
-    name: "Marcus Webb",
-    role: "Product Manager, Northline",
-  },
-  {
-    quote:
-      "Simple enough that our whole design team adopted it in a single afternoon, no onboarding call needed.",
-    name: "Elena Cho",
-    role: "Design Director, Verano",
-  },
+// src/components/Testimonials.tsx
+
+const testimonials = [
+  { quote: "Stride completely transformed our team's workflow. What used to take hours now takes minutes.", name: "Sarah Chen", role: "CTO, TechFlow" },
+  { quote: "The UI is incredibly clean and the performance is unmatched. It's exactly what we needed.", name: "Marcus Johnson", role: "Lead Dev, Appify" },
+  { quote: "We switched from a legacy provider and never looked back. The real-time updates are a game changer.", name: "Elena Rodriguez", role: "Product Manager, Nexus" },
+  { quote: "Setup took less than five minutes. Our team was up and running with zero training required.", name: "David Kim", role: "Founder, StartupHub" }
 ];
 
 export default function Testimonials() {
   return (
-    <section id="testimonials" className="mx-auto max-w-6xl px-6 py-24">
-      <p className="lane-label text-cobalt">Lane 04 — Testimonials</p>
-      <h2 className="mt-4 max-w-2xl font-display text-4xl leading-tight md:text-5xl">
-        TEAMS THAT PICKED UP THE PACE
-      </h2>
-
-      <div className="mt-14 grid gap-6 md:grid-cols-3">
-        {TESTIMONIALS.map((t) => (
-          <figure
-            key={t.name}
-            className="flex flex-col justify-between rounded-2xl border border-mist bg-white p-8"
-          >
-            <blockquote className="text-lg leading-relaxed text-ink">
-              “{t.quote}”
-            </blockquote>
-            <figcaption className="mt-8">
-              <div className="font-semibold text-ink">{t.name}</div>
-              <div className="text-sm text-slate">{t.role}</div>
-            </figcaption>
-          </figure>
-        ))}
+    <section className="bg-black py-24 border-t border-white/5 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-6">
+        <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16">Loved by fast-moving teams</h2>
+        
+        {/* The Carousel: flex with overflow-x-auto allows horizontal scrolling. snap-x makes it snap to cards */}
+        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 scrollbar-hide">
+          {testimonials.map((t, i) => (
+            <div key={i} className="min-w-75 snap-center rounded-2xl border border-white/1 p-8 backdrop-blur-sm hover:border-white/20 transition">
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">"{t.quote}"</p>
+              <div className="flex items-center">
+                {/* Fake Avatar using a gradient circle */}
+                <div className="h-12 w-12 rounded-full from-purple-500 to-blue-500 mr-4 flex items-center justify-center text-white font-bold">
+                  {t.name.charAt(0)} {/* Gets the first letter of their name */}
+                </div>
+                <div>
+                  <div className="text-white font-semibold">{t.name}</div>
+                  <div className="text-gray-400 text-sm">{t.role}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </section>
   );
