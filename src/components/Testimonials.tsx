@@ -1,31 +1,46 @@
-// src/components/Testimonials.tsx
-
+// Testimonials.tsx
 const testimonials = [
-  { quote: "Stride completely transformed our team's workflow. What used to take hours now takes minutes.", name: "Sarah Chen", role: "CTO, TechFlow" },
-  { quote: "The UI is incredibly clean and the performance is unmatched. It's exactly what we needed.", name: "Marcus Johnson", role: "Lead Dev, Appify" },
-  { quote: "We switched from a legacy provider and never looked back. The real-time updates are a game changer.", name: "Elena Rodriguez", role: "Product Manager, Nexus" },
-  { quote: "Setup took less than five minutes. Our team was up and running with zero training required.", name: "David Kim", role: "Founder, StartupHub" }
+  {
+    quote: "TaskFlow replaced three tools we were using. It's so simple our whole team adopted it in one day.",
+    name: "Priya Sharma",
+    role: "Ops Manager, Loomly",
+    avatar: "PS",
+  },
+  {
+    quote: "The drag-and-drop is exactly what we needed. No bloat, just pure task management.",
+    name: "Marcus Lee",
+    role: "Dev Lead, Threadly",
+    avatar: "ML",
+  },
+  {
+    quote: "Finally a project tool that doesn't require a tutorial. TaskFlow just makes sense.",
+    name: "Eva Johansson",
+    role: "Designer, Freelance",
+    avatar: "EJ",
+  },
 ];
 
-export default function Testimonials() {
+const Testimonials = () => {
   return (
-    <section className="bg-black py-24 border-t border-white/5 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-6">
-        <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-16">Loved by fast-moving teams</h2>
-        
-        {/* The Carousel: flex with overflow-x-auto allows horizontal scrolling. snap-x makes it snap to cards */}
-        <div className="flex gap-6 overflow-x-auto snap-x snap-mandatory pb-6 scrollbar-hide">
-          {testimonials.map((t, i) => (
-            <div key={i} className="min-w-75 snap-center rounded-2xl border border-white/1 p-8 backdrop-blur-sm hover:border-white/20 transition">
-              <p className="text-gray-300 text-lg leading-relaxed mb-6">"{t.quote}"</p>
-              <div className="flex items-center">
-                {/* Fake Avatar using a gradient circle */}
-                <div className="h-12 w-12 rounded-full from-purple-500 to-blue-500 mr-4 flex items-center justify-center text-white font-bold">
-                  {t.name.charAt(0)} {/* Gets the first letter of their name */}
+    <section id="testimonials" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center text-gray-900 mb-12">
+          Loved by teams that ship
+        </h2>
+        <div className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {testimonials.map((t, idx) => (
+            <div
+              key={idx}
+              className="snap-center shrink-0 w-[85vw] sm:w-100 bg-gray-50 rounded-xl p-6 border border-gray-200"
+            >
+              <p className="text-gray-700 italic">“{t.quote}”</p>
+              <div className="mt-5 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-teal-100 text-teal-700 font-semibold flex items-center justify-center text-xs">
+                  {t.avatar}
                 </div>
                 <div>
-                  <div className="text-white font-semibold">{t.name}</div>
-                  <div className="text-gray-400 text-sm">{t.role}</div>
+                  <div className="font-medium text-sm text-gray-900">{t.name}</div>
+                  <div className="text-xs text-gray-500">{t.role}</div>
                 </div>
               </div>
             </div>
@@ -34,4 +49,6 @@ export default function Testimonials() {
       </div>
     </section>
   );
-}
+};
+
+export default Testimonials;

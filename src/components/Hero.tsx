@@ -1,53 +1,72 @@
-// src/components/Hero.tsx
-
-export default function Hero() {
+// Hero.tsx
+const Hero = () => {
   return (
-    // relative allows us to place the gradient inside this section
-    <section className="relative overflow-hidden bg-black pt-40 pb-24 text-center">
-      
-      {/* The Subtle Background Glow - This is the "Vercel/Linear" look */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2  bg-purple-600/20 rounded-full blur-[150px] pointer-events-none"></div>
-      
-      {/* z-10 brings the text above the glow */}
-      <div className="relative z-10 max-w-4xl mx-auto px-6">
-        
-        {/* Glassmorphism Badge */}
-        <div className="inline-block mb-6 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-sm text-gray-300 backdrop-blur-md">
-          ✨ Stride 2.0 is now live!
+    <section className="pt-20 pb-16 md:pt-28 md:pb-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row items-center gap-12">
+        {/* Left text */}
+        <div className="flex-1 text-center lg:text-left">
+          <h1 className="text-4xl sm:text-5xl font-extrabold tracking-tight text-gray-900">
+            Manage tasks without the chaos
+          </h1>
+          <p className="mt-4 max-w-lg mx-auto lg:mx-0 text-lg text-gray-600">
+            TaskFlow brings your team’s work into one simple, visual space.
+            Drag, drop, and get things done.
+          </p>
+          <div className="mt-8 flex flex-col sm:flex-row gap-3 justify-center lg:justify-start">
+            <a
+              href="#pricing"
+              className="px-6 py-3 rounded-lg bg-gray-900 text-white font-semibold hover:bg-gray-800 transition"
+            >
+              Start for free
+            </a>
+            <a
+              href="#features"
+              className="px-6 py-3 rounded-lg border border-gray-300 text-gray-700 font-semibold hover:bg-gray-50 transition"
+            >
+              See features
+            </a>
+          </div>
         </div>
 
-        {/* Main Headline - Notice the gradient text effect */}
-        <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-from-white to-gray-500 bg-clip-text text-transparent">
-          Plan, track, and ship with speed
-        </h1>
-        
-        {/* Subtitle */}
-        <p className="mt-6 max-w-2xl mx-auto text-lg text-gray-400">
-          Stride is the minimalist task manager for fast-moving teams. No clutter, just progress.
-        </p>
-
-        {/* CTA Buttons */}
-        <div className="mt-10 flex justify-center gap-4">
-          <button className="rounded-lg bg-white px-6 py-3 text-sm font-semibold text-black hover:bg-gray-200 transition">
-            Start for Free
-          </button>
-          <button className="rounded-lg border border-white/10 bg-white/5 px-6 py-3 text-sm font-semibold text-white backdrop-blur-md hover:bg-white/10 transition">
-            Book a Demo
-          </button>
+        {/* Right: task board preview */}
+        <div className="flex-1 w-full max-w-md lg:max-w-none">
+          <div className="bg-white border border-gray-200 rounded-2xl shadow-xl p-4 space-y-3">
+            {/* Column headers */}
+            <div className="flex gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">
+              <span className="flex-1 text-center">To Do</span>
+              <span className="flex-1 text-center">In Progress</span>
+              <span className="flex-1 text-center">Done</span>
+            </div>
+            {/* Cards grid */}
+            <div className="grid grid-cols-3 gap-2">
+              <div className="space-y-2">
+                <div className="bg-teal-50 border border-teal-200 rounded-lg p-2 text-xs text-gray-700">
+                  Design onboarding flow
+                </div>
+                <div className="bg-teal-50 border border-teal-200 rounded-lg p-2 text-xs text-gray-700">
+                  API rate limiting
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-2 text-xs text-gray-700">
+                  Homepage redesign
+                </div>
+              </div>
+              <div className="space-y-2">
+                <div className="bg-gray-50 border border-gray-200 rounded-lg p-2 text-xs text-gray-500 line-through">
+                  Fix login bug
+                </div>
+              </div>
+            </div>
+            {/* Add card placeholder */}
+            <div className="pt-2 border-t border-dashed border-gray-200 text-xs text-gray-400 text-center py-1">
+              + Add task
+            </div>
+          </div>
         </div>
-        
       </div>
     </section>
   );
-}
+};
+
+export default Hero;

@@ -1,38 +1,63 @@
-// src/components/Features.tsx
+// Features.tsx
 const features = [
-  { title: "Lightning Fast", desc: "Optimized for speed, loading your dashboards in milliseconds." },
-  { title: "Secure by Default", desc: "Enterprise-grade security baked into every line of code." },
-  { title: "Seamless Integrations", desc: "Connect with Slack, GitHub, and 100+ tools in one click." },
-  { title: "Real-time Updates", desc: "See changes instantly as your team updates tasks." },
-  { title: "Smart Automations", desc: "Let Stride handle the busywork so you can focus on building." },
-  { title: "Advanced Analytics", desc: "Track your team's velocity with beautiful, simple charts." }
+  {
+    title: "Drag & drop boards",
+    desc: "Move tasks between columns as work progresses. No learning curve.",
+    icon: (
+      <svg className="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+          d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+      </svg>
+    ),
+  },
+  {
+    title: "Due dates & reminders",
+    desc: "Never miss a deadline with automatic Slack and email nudges.",
+    icon: (
+      <svg className="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    ),
+  },
+  {
+    title: "Real‑time collaboration",
+    desc: "See changes instantly as your team updates tasks. Like a shared whiteboard.",
+    icon: (
+      <svg className="w-5 h-5 text-teal-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+          d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+      </svg>
+    ),
+  },
 ];
 
-export default function Features() {
+const Features = () => {
   return (
-    // py-24 means padding top and bottom. border-t adds a very faint line at the top
-    <section className="bg-black py-24 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Title */}
-        <h2 className="text-4xl md:text-5xl font-bold text-white text-center mb-4">A platform built for speed</h2>
-        <p className="text-gray-400 text-center mb-16 max-w-2xl mx-auto">Everything you need to streamline your workflow.</p>
-        
-        {/* The Grid: 1 column on mobile, 2 on tablets (md), 3 on desktops (lg) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, i) => (
-            <div 
-              key={i}
-              className="rounded-2xl border border-white/10 bg-linear-to-b  to-transparent p-6 backdrop-blur-sm hover:border-white/20 transition"
-            >
-              {/* The Icon (a gradient square) */}
-              <div className="mb-4 h-10 w-10 rounded-lg  from-purple-500 to-blue-500"></div>
-              <h3 className="text-xl font-semibold text-white mb-2">{feature.title}</h3>
-              <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+    <section id="features" className="py-20 bg-white">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900">
+            Everything your team needs, nothing you don’t
+          </h2>
+          <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
+            Simple tools that fit into your workflow, not the other way around.
+          </p>
+        </div>
+        <div className="grid gap-8 md:grid-cols-3">
+          {features.map((feat, idx) => (
+            <div key={idx} className="p-6 rounded-xl border border-gray-200 hover:shadow-md transition">
+              <div className="w-10 h-10 rounded-lg bg-teal-50 flex items-center justify-center mb-4">
+                {feat.icon}
+              </div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-2">{feat.title}</h3>
+              <p className="text-gray-600 text-sm">{feat.desc}</p>
             </div>
           ))}
         </div>
       </div>
     </section>
   );
-}
+};
+
+export default Features;
