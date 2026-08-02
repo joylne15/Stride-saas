@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
           <div className="h-6 w-6 rounded bg-linear-to-tr from-indigo-600 to-violet-500 flex items-center justify-center font-bold text-white text-xs">
             S
           </div>
-          <span className="font-bold text-slate-200 text-sm">Stride (Flow Stack)</span>
+          <span className="font-bold text-slate-200 text-sm">Stride (FS)</span>
         </div>
 
         <p className="text-slate-500">
