@@ -1,60 +1,62 @@
-import React from 'react';
-
-const reviews = [
+const quotes = [
   {
-    quote: "Stride replaced three separate tools for our sprint planning. It's ridiculously fast and clutter-free.",
-    author: "Alex Morgan",
-    role: "Lead Frontend Engineer",
-    company: "Apex Labs"
+    quote: "We dropped two tools the week we moved to Stride. Our standups got shorter.",
+    name: "Amina K.",
+    role: "Product lead, Kite Studio",
   },
   {
-    quote: "Finally a task manager that doesn't feel like a full-time job to maintain. My team picked it up instantly.",
-    author: "Sarah Chen",
-    role: "Product Designer",
-    company: "Velocty"
+    quote: "It is the only board my team actually keeps up to date. That says everything.",
+    name: "Daniel O.",
+    role: "Founder, Northbound",
   },
   {
-    quote: "The interface is so clean and responsive. Exactly what modern tech teams need to stay in flow.",
-    author: "David K.",
-    role: "Engineering Manager",
-    company: "StackFlow"
-  }
+    quote: "Simple enough for our interns, sharp enough for the engineers.",
+    name: "Priya S.",
+    role: "Engineering manager, Lumen",
+  },
+  {
+    quote: "No setup call, no templates, no training. We were planning in ten minutes.",
+    name: "Marcus T.",
+    role: "Operations, Fieldwork",
+  },
 ];
 
-export const Testimonials: React.FC = () => {
+function QuoteCard({ quote, name, role }: (typeof quotes)[number]) {
   return (
-    <section id="testimonials" className="py-20 bg-slate-900 text-slate-100 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Loved by Developers & Product Teams
-          </h2>
-          <p className="mt-4 text-slate-400 text-lg">
-            Here is what builders are saying about using Stride every day.
-          </p>
-        </div>
+    <figure className="w-[320px] shrink-0 rounded-2xl border border-border bg-card p-6 shadow-card">
+      <blockquote className="text-sm leading-relaxed text-foreground">
+        &ldquo;{quote}&rdquo;
+      </blockquote>
+      <figcaption className="mt-5 flex items-center gap-3">
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-xs font-medium text-accent-foreground">
+          {name.charAt(0)}
+        </span>
+        <span className="text-xs text-muted-foreground">
+          <span className="block font-medium text-foreground">{name}</span>
+          {role}
+        </span>
+      </figcaption>
+    </figure>
+  );
+}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {reviews.map((rev, index) => (
-            <div key={index} className="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
-              <p className="text-slate-300 text-sm leading-relaxed italic">
-                "{rev.quote}"
-              </p>
-              <div className="mt-6 pt-4 border-t border-slate-800/80 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-full bg-linear-to-tr from-indigo-500 to-violet-500 flex items-center justify-center font-bold text-xs text-white">
-                  {rev.author[0]}
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white">{rev.author}</h4>
-                  <p className="text-xs text-slate-500">{rev.role} • {rev.company}</p>
-                </div>
-              </div>
-            </div>
+export function Testimonials() {
+  return (
+    <section id="stories" className="overflow-hidden py-20 md:py-28">
+      <div className="mx-auto max-w-6xl px-6 text-center">
+        <span className="text-xs font-medium uppercase tracking-widest text-primary">Stories</span>
+        <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Teams that moved on quietly</h2>
+      </div>
+
+      <div className="relative mt-12">
+        <div className="flex w-max gap-5 animate-marquee hover:[animation-play-state:paused]">
+          {[...quotes, ...quotes].map((quote, index) => (
+            <QuoteCard key={index} {...quote} />
           ))}
         </div>
-
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-background to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-background to-transparent" />
       </div>
     </section>
   );
-};
+}

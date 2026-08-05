@@ -1,77 +1,63 @@
-import React, { useState } from 'react';
+import React from "react";
+
+// Lightweight local Accordion replacement to avoid missing module error.
+type PropsWithChildren = { children?: React.ReactNode } & Record<string, any>;
+export const Accordion: React.FC<PropsWithChildren & { type?: string; collapsible?: boolean }> = ({ children, ...props }) => (
+  <div {...props}>{children}</div>
+);
+export const AccordionItem: React.FC<PropsWithChildren & { value?: string }> = ({ children, ...props }) => (
+  <details {...props} className={props.className}>
+    {children}
+  </details>
+);
+export const AccordionTrigger: React.FC<PropsWithChildren> = ({ children, ...props }) => (
+  <summary {...props}>{children}</summary>
+);
+export const AccordionContent: React.FC<PropsWithChildren> = ({ children, ...props }) => (
+  <div {...props}>{children}</div>
+);
 
 const faqs = [
   {
-    question: "How is Stride different from Trello or Linear?",
-    answer: "Stride focuses strictly on minimalism. There are no bloated settings menus or complex configuration steps. You open the board, type your task, assign it, and ship."
+    q: "Is Stride really free to start?",
+    a: "Yes. The Solo plan is free forever for one person, and every paid plan includes a 14-day trial with no card required.",
   },
   {
-    question: "Can I invite team members on the Free plan?",
-    answer: "Yes! The free Starter plan allows up to 3 active projects with unlimited tasks so you can collaborate easily."
+    q: "Can I import from Trello or Asana?",
+    a: "You can paste a list of tasks or upload a CSV, and Stride will turn each row into a card on your board.",
   },
   {
-    question: "Does Stride support dark mode?",
-    answer: "Stride is built dark-first by design to reduce eye strain during deep development and design sessions."
+    q: "How many people can join a board?",
+    a: "Up to 20 members per board on Team, and unlimited members on Studio with guest access for clients.",
   },
   {
-    question: "Is there a credit card required for the trial?",
-    answer: "No credit card is required to sign up for our 14-day Pro team trial."
-  }
+    q: "Do you have a mobile app?",
+    a: "Stride works in any mobile browser today, and native iOS and Android apps are in beta for Team customers.",
+  },
 ];
 
-export const FAQ: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
-
-  const toggle = (idx: number) => {
-    setOpenIndex(openIndex === idx ? null : idx);
-  };
-
+export function FAQ() {
   return (
-    <section id="faq" className="py-20 bg-slate-950 text-slate-100 border-t border-slate-800">
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Frequently Asked Questions
-          </h2>
-          <p className="mt-4 text-slate-400 text-lg">
-            Got questions? We've got answers.
-          </p>
+    <section id="faq" className="border-t border-border bg-surface-tint/50">
+      <div className="mx-auto max-w-3xl px-6 py-20 md:py-28">
+        <div className="text-center">
+          <span className="text-xs font-medium uppercase tracking-widest text-primary">FAQ</span>
+          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Questions, answered</h2>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => {
-            const isOpen = openIndex === index;
-            return (
-              <div 
-                key={index} 
-                className="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden transition-colors"
-              >
-                <button
-                  onClick={() => toggle(index)}
-                  className="w-full text-left p-5 flex items-center justify-between font-semibold text-slate-200 hover:text-white"
-                >
-                  <span>{faq.question}</span>
-                  <svg 
-                    className={`w-5 h-5 text-indigo-400 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} 
-                    fill="none" 
-                    stroke="currentColor" 
-                    viewBox="0 0 24 24"
-                  >
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                  </svg>
-                </button>
-                {isOpen && (
-                  <div className="px-5 pb-5 text-sm text-slate-400 border-t border-slate-800/50 pt-3 leading-relaxed">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
+        <Accordion type="single" collapsible className="mt-10 w-full">
+          {faqs.map((faq) => (
+            <AccordionItem key={faq.q} value={faq.q} className="border-border">
+              <AccordionTrigger className="text-left text-base font-medium">
+                {faq.q}
+              </AccordionTrigger>
+              <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                {faq.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
       </div>
     </section>
   );
-};
+}

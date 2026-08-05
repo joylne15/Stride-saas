@@ -1,101 +1,116 @@
-import React from 'react';
+import type { ButtonHTMLAttributes, SVGProps } from "react";
 
-const plans = [
+type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: "default" | "outline";
+  className?: string;
+};
+
+function Button({ variant = "default", className = "", ...props }: ButtonProps) {
+  const variantClasses =
+    variant === "outline"
+      ? "border border-border bg-transparent text-foreground hover:bg-accent hover:text-foreground"
+      : "bg-primary text-primary-foreground hover:bg-primary/90";
+
+  return (
+    <button
+      className={`inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:opacity-50 disabled:pointer-events-none ${variantClasses} ${className}`}
+      {...props}
+    />
+  );
+}
+
+function Check(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M5 13l4 4L19 7" />
+    </svg>
+  );
+}
+
+const tiers = [
   {
-    name: 'Starter',
-    price: '$0',
-    period: 'Forever free',
-    description: 'Perfect for individuals and small personal side-projects.',
-    features: ['Up to 3 Projects', 'Unlimited Tasks', 'Basic Task Filtering', 'Community Support'],
-    isPopular: false,
-    cta: 'Get Started',
+    name: "Solo",
+    price: "$0",
+    note: "for one person",
+    features: ["1 board", "Unlimited tasks", "Weekly recap"],
+    featured: false,
   },
   {
-    name: 'Pro Team',
-    price: '$12',
-    period: 'per user / month',
-    description: 'Ideal for fast-moving startups and active development teams.',
-    features: ['Unlimited Projects', 'Real-time Team Sync', 'Priority Task Tagging', 'Activity Audit Logs', 'Direct Integrations'],
-    isPopular: true,
-    cta: 'Start 14-Day Free Trial',
+    name: "Team",
+    price: "$9",
+    note: "per user / month",
+    features: ["Unlimited boards", "Comments & mentions", "Due dates", "Priority support"],
+    featured: true,
   },
   {
-    name: 'Enterprise',
-    price: '$29',
-    period: 'per user / month',
-    description: 'For growing organizations needing higher control and support.',
-    features: ['Custom Workflows', 'Dedicated Success Manager', 'SSO & Advanced Security', 'Custom SLAs'],
-    isPopular: false,
-    cta: 'Contact Sales',
+    name: "Studio",
+    price: "$19",
+    note: "per user / month",
+    features: ["Everything in Team", "Guest access", "Custom workflows", "Admin controls"],
+    featured: false,
   },
 ];
 
-export const Pricing: React.FC = () => {
+export function Pricing() {
   return (
-    <section id="pricing" className="py-20 bg-slate-950 text-slate-100 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Transparent Pricing for Every Team
-          </h2>
-          <p className="mt-4 text-slate-400 text-lg">
-            Start for free and scale as your product grows.
+    <section id="pricing" className="border-y border-border bg-surface-tint/60">
+      <div className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+        <div className="mx-auto max-w-xl text-center">
+          <span className="text-xs font-medium uppercase tracking-widest text-primary">Pricing</span>
+          <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">Fair, flat, and readable</h2>
+          <p className="mt-4 text-muted-foreground">
+            Start free. Upgrade when your team grows. Cancel any time.
           </p>
         </div>
 
-        {/* 3-Tier Pricing Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch">
-          {plans.map((plan, index) => (
+        <div className="mt-12 grid gap-6 md:grid-cols-3">
+          {tiers.map((tier) => (
             <div
-              key={index}
-              className={`relative flex flex-col justify-between p-8 rounded-2xl border ${
-                plan.isPopular
-                  ? 'bg-slate-900 border-indigo-500 shadow-2xl shadow-indigo-600/20'
-                  : 'bg-slate-950 border-slate-800'
+              key={tier.name}
+              className={`flex flex-col rounded-2xl border bg-card p-7 ${
+                tier.featured
+                  ? "border-primary/40 shadow-lift md:-translate-y-3"
+                  : "border-border shadow-card"
               }`}
             >
-              {plan.isPopular && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow-md">
-                  Most Popular
-                </div>
-              )}
-
-              <div>
-                <h3 className="text-xl font-bold text-white">{plan.name}</h3>
-                <p className="text-xs text-slate-400 mt-1">{plan.description}</p>
-                
-                <div className="my-6">
-                  <span className="text-4xl font-extrabold text-white">{plan.price}</span>
-                  <span className="text-slate-400 text-xs ml-2">{plan.period}</span>
-                </div>
-
-                <ul className="space-y-3 mb-8 text-sm text-slate-300">
-                  {plan.features.map((feat, fIdx) => (
-                    <li key={fIdx} className="flex items-center gap-2">
-                      <svg className="w-4 h-4 text-indigo-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
-                      </svg>
-                      {feat}
-                    </li>
-                  ))}
-                </ul>
+              <div className="flex items-center justify-between">
+                <h3 className="text-base font-semibold">{tier.name}</h3>
+                {tier.featured && (
+                  <span className="rounded-full bg-primary px-2.5 py-0.5 text-[11px] text-primary-foreground">
+                    Popular
+                  </span>
+                )}
               </div>
-
-              <button
-                className={`w-full py-3 rounded-xl font-semibold text-sm transition-all ${
-                  plan.isPopular
-                    ? 'bg-indigo-600 hover:bg-indigo-500 text-white shadow-lg shadow-indigo-600/30'
-                    : 'bg-slate-800 hover:bg-slate-700 text-slate-200'
-                }`}
+              <div className="mt-5 flex items-end gap-1">
+                <span className="font-display text-4xl font-semibold">{tier.price}</span>
+                <span className="pb-1 text-xs text-muted-foreground">{tier.note}</span>
+              </div>
+              <ul className="mt-6 space-y-3">
+                {tier.features.map((item) => (
+                  <li key={item} className="flex items-start gap-2 text-sm text-muted-foreground">
+                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <Button
+                variant={tier.featured ? "default" : "outline"}
+                className="mt-8 w-full rounded-full"
               >
-                {plan.cta}
-              </button>
+                {tier.featured ? "Start free trial" : "Choose " + tier.name}
+              </Button>
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );
-};
+}

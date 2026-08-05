@@ -1,67 +1,72 @@
-import React from 'react';
+import React from "react";
 
-const featureList = [
+const Layers: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M12 2L2 7l10 5 10-5-10-5z" />
+    <path d="M2 17l10 5 10-5" />
+    <path d="M2 12l10 5 10-5" />
+  </svg>
+);
+
+const Users: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} xmlns="http://www.w3.org/2000/svg" {...props}>
+    <path d="M17 21v-2a4 4 0 00-4-4H9a4 4 0 00-4 4v2" />
+    <circle cx="12" cy="7" r="4" />
+  </svg>
+);
+
+const CheckCircle2: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} xmlns="http://www.w3.org/2000/svg" {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M9 12l2 2 4-4" />
+  </svg>
+);
+
+const features = [
   {
-    title: 'Instant Task Board',
-    description: 'Create, organize, and drag tasks into simple columns without complicated setup or workflows.',
-    icon: (
-      <svg className="w-6 h-6 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-      </svg>
-    ),
+    icon: Layers,
+    title: "One simple board",
+    body: "Three lists, drag and drop, nothing else to learn. Your whole week fits on a single screen.",
   },
   {
-    title: 'Real-time Team Sync',
-    description: 'See live updates when team members complete tasks, add comments, or shift deadlines.',
-    icon: (
-      <svg className="w-6 h-6 text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
+    icon: Users,
+    title: "Built for small teams",
+    body: "Assign a task, leave a comment, move on. Everyone sees the same plan without a status meeting.",
   },
   {
-    title: 'Minimal Distractions',
-    description: 'Clean dark UI designed to keep your focus strictly on what matters most—shipping your work.',
-    icon: (
-      <svg className="w-6 h-6 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  }
+    icon: CheckCircle2,
+    title: "Progress you can feel",
+    body: "Clear checkmarks and a weekly recap so you always know what shipped and what is next.",
+  },
 ];
 
-export const Features: React.FC = () => {
+export function Features() {
   return (
-    <section id="features" className="py-20 bg-slate-900 text-slate-100 border-t border-slate-800">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Designed for Speed and Clarity
-          </h2>
-          <p className="mt-4 text-slate-400 text-lg">
-            Everything your team needs to stay productive, without the bloat of traditional software.
-          </p>
-        </div>
+    <section id="features" className="mx-auto max-w-6xl px-6 py-20 md:py-28">
+      <div className="max-w-xl">
+        <span className="text-xs font-medium uppercase tracking-widest text-primary">Features</span>
+        <h2 className="mt-3 text-3xl font-semibold sm:text-4xl">
+          Everything you need. Nothing you don&apos;t.
+        </h2>
+        <p className="mt-4 text-muted-foreground">
+          Stride keeps the surface small on purpose, so the tool never becomes the work.
+        </p>
+      </div>
 
-        {/* 3-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {featureList.map((item, index) => (
-            <div 
-              key={index} 
-              className="bg-slate-950 p-8 rounded-2xl border border-slate-800 hover:border-indigo-500/50 transition-all duration-300 hover:-translate-y-1 shadow-lg group"
-            >
-              <div className="w-12 h-12 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center mb-6 group-hover:border-indigo-500/40 transition-colors">
-                {item.icon}
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">{item.title}</h3>
-              <p className="text-slate-400 text-sm leading-relaxed">{item.description}</p>
-            </div>
-          ))}
-        </div>
-
+      <div className="mt-12 grid gap-6 md:grid-cols-3">
+        {features.map((feature) => (
+          <div
+            key={feature.title}
+            className="rounded-2xl border border-border bg-card p-6 shadow-card transition-shadow hover:shadow-lift"
+          >
+            <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-accent-foreground">
+              <feature.icon className="h-5 w-5" />
+            </span>
+            <h3 className="mt-5 text-lg font-semibold">{feature.title}</h3>
+            <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{feature.body}</p>
+          </div>
+        ))}
       </div>
     </section>
   );
-};
+}
