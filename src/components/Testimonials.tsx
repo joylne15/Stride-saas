@@ -1,22 +1,22 @@
 const quotes = [
   {
     quote: "We dropped two tools the week we moved to Stride. Our standups got shorter.",
-    name: "Amina K.",
+    name: "Joyce D.",
     role: "Product lead, Kite Studio",
   },
   {
     quote: "It is the only board my team actually keeps up to date. That says everything.",
-    name: "Daniel O.",
+    name: "Levina K.",
     role: "Founder, Northbound",
   },
   {
     quote: "Simple enough for our interns, sharp enough for the engineers.",
-    name: "Priya S.",
+    name: " Joyce W.",
     role: "Engineering manager, Lumen",
   },
   {
     quote: "No setup call, no templates, no training. We were planning in ten minutes.",
-    name: "Marcus T.",
+    name: "Joan F.",
     role: "Operations, Fieldwork",
   },
 ];
